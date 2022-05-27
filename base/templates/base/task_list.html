@@ -1,0 +1,47 @@
+{% extends 'base/main.html' %} {% block content%}
+
+<div class="header-bar">
+  {% if request.user.is_authenticated %}
+  <div class="user-name"><p>{{request.user}}</p></div>
+  <a href="{% url 'logout' %}">Logout</a>{% else %}
+  <a href="{% url 'login' %}">Login</a>{% endif %}
+</div>
+<hr />
+<h1>My Daily Health Tracker</h1>
+<div class="add-task">
+  <a href="{% url 'task-create' %}">Add Health Data for Today</a>
+</div>
+<div class="data">
+  <table>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for task in tasks%}
+    <tr>
+      <td>{{task.date}}</td>
+      <td><a href="{% url 'task-update' task.id %}">Edit</a></td>
+      <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
+    </tr>
+
+    <tr>
+      <td>total calories {{task.daily_calorie_consumption}}</td>
+    </tr>
+    <tr>
+      <td>calories burned {{task.exercise_daily_calores_burned}}</td>
+    </tr>
+    <tr>
+      <td>hours fasted {{task.daily_hours_fasted}}</td>
+    </tr>
+    <tr>
+      <td>weight {{task.weight}}</td>
+    </tr>
+    <tr>
+      <td><br /></td>
+    </tr>
+    {% empty %}
+    <h3>No Data for Today</h3>
+    {% endfor %}
+  </table>
+</div>
+{% endblock content %}

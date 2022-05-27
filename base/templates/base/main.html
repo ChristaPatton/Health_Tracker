@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Daily Health Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background-color: #fafafa;
+        font-family: "Nunito", sans-serif;
+        padding-top: 50px;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .container {
+        max-width: 550px;
+        margin: auto;
+        background-color: rgb(155, 174, 181);
+        -webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+        box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+        text-align: center;
+      }
+      a {
+        font-weight: 600;
+        color: rgb(126, 69, 108);
+      }
+      .user-name {
+        font-size: 35px;
+      }
+      .header-bar {
+        font-size: 30px;
+        font-weight: 700;
+        color: black;
+      }
+      .add-task {
+        font-size: 25px;
+        font-weight: 300;
+      }
+      .data {
+        font-size: 20px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">{% block content %} {% endblock content%}</div>
+  </body>
+</html>
