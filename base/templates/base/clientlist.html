@@ -1,0 +1,11 @@
+{% extends 'base/main.html' %} {% block content%}
+<div>
+  {% for client in clients %}
+  <ul>
+    <li>
+      <a href="{% url 'tasks' task.id %}"><button>{{client}}</button></a>
+    </li>
+  </ul>
+  {% endfor %}
+</div>
+{% endblock content %}

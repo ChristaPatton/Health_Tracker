@@ -1,0 +1,106 @@
+{% extends 'base/main.html' %} {% block content%}
+<head>
+  
+  <style>
+    a {
+     white-space: pre-wrap;
+   }
+    h1 {
+     color: white;
+   text-align: center;
+   background-image: linear-gradient(
+     to bottom right,
+     rgb(48, 67, 66),
+     rgb(88, 90, 142)
+   );
+ }
+ #title {
+   font-size: x-large;
+   color:white; 
+   background-color: rgb(47, 50, 63); 
+   
+ }
+ p {
+   color:red;
+   font-weight: bold;
+   
+   
+ }
+
+
+  #white {
+   color: white;
+  } 
+</style>
+
+  </head>
+  
+  <div class="header-bar">
+    <h1></h1>
+  </div>
+
+  <div>
+    <p id="red"></p>
+    <div class="data">
+      <table class="table table-striped table-hover">
+        
+        
+       {% for one in one_product %} 
+       <h1 id="white">{{one}}</h1>
+       {% endfor %}
+        <tr>
+          <td>
+          <div id="title">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        Client
+                    </div>
+                    <div class="col">
+                        Current Version
+                    </div>
+                    <div class="col">
+                         Latest Version
+                    </div>
+                    <div class="col">
+                        Last Update
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+          </div>
+        {% for data in data_per_product%}
+          
+            <tr>
+              <td>
+                <div class="row">
+                  <div class="col">{{data.client}} {% if data.note != null%}<a class="bi bi-file-earmark" data-bs-toggle="popover" data-bs-title="Note" data-bs-content= "{{data.note}}"></a>{% endif %}</div>
+                  <div class="col">{% if data.version != data.current_version %} <p id= "red">{{data.version}}</p>{% endif %}{% if data.version == data.current_version %} {{data.version}}{% endif %}</div>
+                  <div class="col">{{current_version.the_current_version}}</div>
+                  <div class="col">{{data.last_update}}</div>
+                  <div class="col"> 
+                   <a class="btn btn-sm btn-info" href="{% url 'update_product' data.id %}">Update</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'delete_product' data.id %}">Delete</a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'add_note' data.id %}"> Note</a>
+                  </div>
+                </div>
+              </td>
+           </tr>
+         {% empty %}
+          <h3></h3>
+          
+        {% endfor %}
+      
+    </table>
+  </div>
+  
+</div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <script> const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+  const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))</script>
+</body>
+{% endblock content %}
+

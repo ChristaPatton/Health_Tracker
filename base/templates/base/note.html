@@ -1,0 +1,30 @@
+{% extends 'base/main.html' %} {% load static %} {% block content %}
+<html>
+  <style>
+span{
+  color: rgb(36, 135, 135);
+}
+</style>
+  <body>
+    <h1>Add a note for <span>{{note.product}}</span> for <span>{{note}}</span></h1>
+    {% if submitted %}
+    Note added
+    {% else %}
+    
+        <p> 
+        <form action="" method=POST>
+        {% csrf_token %}
+        {{ form.as_p}}
+        
+        <input type= "submit" value="Save" class= "btn btn-info">
+        </form></p>
+    {% endif %}
+  
+<form action="{% url 'delete_note' note.id  %}" method="POST">
+  {% csrf_token %}
+
+  <input class="btn btn-danger" type="submit" value= "Delete Note" name="Confirm" />
+</form>
+</body>
+</html>
+{% endblock%}

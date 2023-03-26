@@ -1,0 +1,75 @@
+{% extends 'base/main.html' %} {% block content%}
+<style>
+  #list {
+    list-style-type: none;
+  }
+  ul li {
+    width: 50%;
+    float: left;
+  }
+  h1 {
+    color: white;
+    text-align: center;
+    background-image: linear-gradient(
+      to bottom right,
+      rgb(48, 67, 66),
+      rgb(88, 90, 142)
+    );
+  }
+  #add,
+  #update {
+    color: rgb(36, 135, 135);
+    font-size: 28px;
+    border-radius: 5%;
+    padding: 4px;
+    font-weight: 500;
+  }
+
+  p {
+    padding-bottom: 20px;
+  }
+  a {
+    color: black;
+  }
+</style>
+<div>
+  <div>
+    <h1>Clients</h1>
+    {% for client in client_list %}
+    <ul id="list">
+      <li>
+        <button type="button" class="btn btn-light btn-lg">
+          <a href="{% url 'data-per-client' client.id %}">{{client}}</a>
+        </button>
+      </li>
+    </ul>
+
+    {% endfor %}
+  </div>
+  <p>.</p>
+
+  <div>
+    <h1>Products</h1>
+    <center>
+      <a id="add" href="{% url 'create_product' %}"
+        >Add a Product to a Client</a
+      >
+    </center>
+    <center>
+      <a id="update" href="{% url 'master' %}"
+        >Update Master to Latest Versions</a
+      >
+    </center>
+    {% for product in product_list %}
+    <ul id="list">
+      <li>
+        <button type="button" class="btn btn-light btn-lg">
+          <a href="{% url 'data-per-product' product.id %}">{{product}}</a>
+        </button>
+      </li>
+    </ul>
+
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

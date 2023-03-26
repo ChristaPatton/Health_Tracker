@@ -1,0 +1,39 @@
+{% extends 'base/main.html' %} {% load static %} {% block content %}
+<html>
+  <style>
+    h1 {
+      color: white;
+      text-align: center;
+      background-image: linear-gradient(
+        to bottom right,
+        rgb(48, 67, 66),
+        rgb(88, 90, 142)
+      );
+    }
+    #title {
+      font-size: x-large;
+      color: white;
+      background-color: rgb(47, 50, 63);
+    }
+    #ver,
+    a {
+      font-size: 30px;
+    }
+  </style>
+  <body>
+    <h1>Master List: Latest Versions</h1>
+    {% for data in masterver%}
+    <div class="row">
+      <hr />
+      <div id="ver" class="col">{{data.the_product}}</div>
+      <div id="ver" class="col">{{data.the_current_version}}</div>
+      <div class="col">
+        <a class="btn btn-lg btn-info" href="{% url 'update_master' data.id %}"
+          >Update</a
+        >
+      </div>
+    </div>
+    {% endfor %}
+  </body>
+</html>
+{% endblock%}

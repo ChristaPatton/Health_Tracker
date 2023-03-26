@@ -1,0 +1,9 @@
+{% extends 'base/main.html' %} {% block content%}
+<div>
+  {% for track in object_list %}
+  <ul>
+    <li><button>{{track.product}}</button></li>
+  </ul>
+  {% endfor %}
+</div>
+{% endblock content %}
