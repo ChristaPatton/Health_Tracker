@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Task, Client, Product, Version
+from .models import Task, Client, Product
 # Register your models here.
 admin.site.register(Task)
 admin.site.register(Client)
 admin.site.register(Product)
-admin.site.register(Version)

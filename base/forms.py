@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Task, Version, Product
+from .models import Task, Product
 from django import forms
 
 
@@ -17,13 +17,13 @@ class Note(ModelForm):
 
 class VersionForm(ModelForm):
 	
-	model = Version
+
 	class Meta:
-		model = Version
-		fields = ['the_current_version']
-		labels= {'the_current_version': 'The Latest Version'}
+		model = Product
+		fields = ['product']
+		labels= {'product': 'The Latest Version'}
 
 class AddForm(ModelForm):
 	class Meta:	
 		model = Product
-		fields = ['product_item']
+		fields = ['product']

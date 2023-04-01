@@ -25,8 +25,8 @@
     {% for data in masterver%}
     <div class="row">
       <hr />
-      <div id="ver" class="col">{{data.the_product}}</div>
-      <div id="ver" class="col">{{data.the_current_version}}</div>
+      <div id="ver" class="col">{{data.product}}</div>
+      <div id="ver" class="col">{{data.latest_available_version}}</div>
       <div class="col">
         <a class="btn btn-lg btn-info" href="{% url 'update_master' data.id %}"
           >Update</a

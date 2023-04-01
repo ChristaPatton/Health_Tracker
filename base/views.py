@@ -3,14 +3,21 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .forms import ProductForm, Note, VersionForm, AddForm
+from django.urls import reverse
+from import_export import resources, fields
+from import_export.widgets import ForeignKeyWidget
+from import_export.admin import ImportExportModelAdmin
+from import_export.formats import base_formats
+from import_export import resources, fields, widgets
+from tablib import Dataset
 
-from .models import Client, Product, Task, Version
+from .models import Client, Product, Task
 
 
 def home(request):
     client_list= Client.objects.all().order_by('entity')
-    product_list= Product.objects.all().order_by('product_item')
-    context= {'client_list':client_list, 'product_list': product_list}
+    product= Product.objects.all().order_by('product')
+    context= {'client_list':client_list, 'product': product}
     return render(request, 'base/home.html', context)
 
 def data_per_client(request, client_id):
@@ -21,7 +28,7 @@ def data_per_client(request, client_id):
     return render(request, 'base/task_list.html', context)
 
 def data_per_product(request, product_id):
-    current_version = Version.objects.get(the_product= product_id)
+    current_version = Product.objects.get(product= product_id)
     the_product1= Product(pk= product_id)
     data_per_product= Task.objects.filter(product_id= product_id)
     one_product=list(Product.objects.filter(id= product_id).values_list("product_item", flat= True))
@@ -90,22 +97,24 @@ def delete_note(request, pk):
 	return render(request, 'base/note.html', context)
 
 def master(request):
-    masterver= Version.objects.all().order_by('the_product')
+    masterver= Product.objects.all().order_by('product')
 
     return render(request, 'base/master.html', {'masterver': masterver})
 
+
+
 def updateMaster(request, pk):
 
-	the_current_version = Version.objects.get(id=pk)
-	form = VersionForm(instance=the_current_version)
+	product = Product.objects.get(id=pk)
+	form = VersionForm(instance=product)
 
 	if request.method == 'POST':
-		form = VersionForm(request.POST, instance=the_current_version)
+		form = VersionForm(request.POST, instance=product)
 		if form.is_valid():
 			form.save()
 			return redirect('/')
 
-	context = {'the_current_version': the_current_version, 'form':form}
+	context = {'product': product, 'form':form}
 	
 	return render(request, 'base/master_form.html', context)
 
@@ -120,3 +129,45 @@ def addProduct(request):
 	
 	context = {'form':form}
 	return render(request, 'base/master_add_form.html', context)
+
+class Model1Resource(resources.ModelResource):
+    class Meta:
+        model = Client
+        fields = ('entity',)
+
+class Model2Resource(resources.ModelResource):
+    class Meta:
+        model = Product
+        fields = ('product', 'latest_available_version')
+
+class Model3Resource(resources.ModelResource):
+    class Meta:
+        model = Task
+        fields = ('client', 'product', 'version', 'last_update', 'note')
+
+def import_data(request):
+    if request.method == 'POST':
+        # Get the uploaded file from the form
+        file = request.FILES['file']
+        # Determine which ModelResource to use based on the form data
+        resource = None
+        model_name = request.POST.get('model_name')
+        if model_name == 'Model1':
+            resource = Model1Resource()
+        elif model_name == 'Model2':
+            resource = Model2Resource()
+        elif model_name == 'Model3':
+            resource = Model3Resource()
+        # Use the appropriate ModelResource to import the data
+        dataset = Dataset()
+        imported_data = dataset.load(file.read(), format='xlsx')
+        result = resource.import_data(dataset, dry_run=False)
+        if result.has_errors():
+            # Handle errors
+            pass
+        else:
+            # Import successful
+            pass
+    # Render the import form
+    context = {'models': ['Model1', 'Model2', 'Model3']}
+    return render(request, 'base/import_data.html', context)

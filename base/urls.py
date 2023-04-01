@@ -17,6 +17,7 @@ urlpatterns = [
     path('master', views.master, name="master"),
     path('update_master/<str:pk>/', views.updateMaster, name="update_master"),
     path('master_add', views.addProduct, name='master_add'),
+    path('import_data/', views.import_data, name='import_data'),
     
     
 ] 
