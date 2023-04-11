@@ -21,9 +21,11 @@
     Are you sure that you want to delete {{ product.pk }} from the master
     product list? It will no longer be available for any Client if deleted here.
   </h1>
+  <form action="{% url 'delete_product' product  %}" method="POST">
+    {% csrf_token %}
+    <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
 
-  <a class="btn btn-lg btn-danger" href="{% url 'delete_product' product %}"
-    >Delete</a
-  >
+    <input class="btn btn-danger" type="submit" name="Confirm" />
+  </form>
 </body>
 {% endblock %}

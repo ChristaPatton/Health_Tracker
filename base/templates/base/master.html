@@ -26,6 +26,14 @@
     #space {
       padding: 50px;
     }
+
+    #link {
+      color: rgb(104, 28, 39);
+      font-size: 32px;
+      border-radius: 5%;
+      padding: 4px;
+      font-weight: 500;
+    }
   </style>
   <body>
     <h1>Master Product List: Latest Available Versions</h1>
@@ -35,12 +43,15 @@
           Add A New Product To Master Product List
         </h3>
         <a
-          class="btn btn-lg btn-primary"
+          id="link"
           href="{% url 'master_add' %} "
           style="display: inline-block"
           >Add</a
         >
       </center>
+      <a id="link" href="{% url 'home' %} " style="display: inline-block"
+        >Back to Client and Product Data</a
+      >
     </div>
     {% for data in masterver%}
     <div class="row">
