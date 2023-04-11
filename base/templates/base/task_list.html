@@ -2,88 +2,83 @@
 <head>
   <style>
     a {
-      white-space: pre-wrap;
-    }
-    td{
-      font-size: medium;
-
-    }
+     white-space: pre-wrap;
+   }
     h1 {
-    color: white;
-    text-align: center;
-    background-image: linear-gradient(
-      to bottom right,
-      rgb(48, 67, 66),
-      rgb(88, 90, 142)
-    );
-    
-    }
-    #tablefont{
-      font-size: large;
-    }
-    #title {
-        font-size: x-large;
-        color:white; 
-        background-color: rgb(47, 50, 63); 
-    }    
-    
-    #second {
-      position: absolute;
-      left: 550px;
-    }
-    #third {
-      position: absolute;
-      left: 800px;
-    }
-    #fourth {
-      position: absolute;
-      left: 1000px;
-    }
-    #fifth {
-      position: absolute;
-      left: 1200px;
-    }
-    #red {
-      background-color:red;
-      position: absolute;
-      left: 550px;
-    }
-    #white {
-      color: white;
-    }
-  </style>
-  </head>
-  <div>
-    <h1 id="white">{{list_client}}</h1>
-  </div>
-  <div>
-    
-    <div class="data">
-      <table class="table table-striped table-hover">
-        <h1 id="white">{{data.client}}</h1>
-        <tr>
-          <div id="title">
-          <span>Product</span> <span id="second">Current Version</span>
-          <span id="third">Latest Version</span>
-          <span id="fourth">Last Update</span>
-          </div>
-        <tr>
-          {% for data in data_per_client%}
+     color: white;
+   text-align: center;
+   background-image: linear-gradient(
+     to bottom right,
+     rgb(48, 67, 66),
+     rgb(88, 90, 142)
+   );
+ }
+ #title {
+   font-size: x-large;
+   color:white; 
+   background-color: rgb(47, 50, 63); 
+   
+ }
+ #red {
+   color:red;
+   font-weight: bold;
+   
+   
+ }
 
+
+  #white {
+   color: white;
+  } 
+</style>
+ 
+  </head>
+
+  <div>
+    <table class="table table-striped table-hover">
+    <h1 id="white">{{list_client}}</h1>
+    <tr>
+      <td>
+      <div id="title">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    Product
+                </div>
+                <div class="col">
+                    Current Version
+                </div>
+                <div class="col">
+                     Latest Available Version
+                </div>
+                <div class="col">
+                    Last Update
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+      </div>
+  </div>
+  
+    
+    
+        {% for data in data_per_client%}
+        <tr>
           <td>
-            <div id=" tablefont">
-            {{data.product}} {% if data.note != null%}<a class="bi bi-file-earmark" data-bs-toggle="popover" data-bs-title="Note" data-bs-content= "{{data.note}}"></a>{% endif %}{% if data.version != data.current_version %} <span id= "red">{{data.version}}</span>{% endif %} <span id="second">{{data.version}}</span>
-            <span id="third">{{data.current_version}}</span>
-            <span id="fourth"> {{data.last_update}}</span>
-            <span id="fifth"><a class="btn btn-sm btn-info" href="{% url 'update_product' data.id %}">Update</a>
-              <a class="btn btn-sm btn-danger" href="{% url 'delete_product' data.id %}">Delete</a>
-              <a class="btn btn-sm btn-primary" href="{% url 'add_note' data.id %}">Note</a></span>
-              
+            <div class="row">
+            <div class= "col">{{data.product}} {% if data.note != null%}<a class="bi bi-file-earmark" data-bs-toggle="popover" data-bs-title="Note" data-bs-content= "{{data.note}}"></a>{% endif %}</div>
+            <div class= "col">{% if data.version != data.product.latest_available_version and data.version != none %} <p id= "red">{{data.version}}</p>{% endif %}{% if data.version == data.product.latest_available_version %}<p>{{data.version}}</p>{% endif %}</div>
+            <div class= "col">{{data.product.latest_available_version}}</div>
+            <div class= "col"> {{data.last_update}}</div>
+            <div class= "col"><a class="btn btn-sm btn-info" href="{% url 'update_product' data.product %}">Update</a>
+              <a class="btn btn-sm btn-danger" href="{% url 'delete_prod' data.product %}">Delete</a>
+              <a class="btn btn-sm btn-primary" href="{% url 'add_note' data.product %}">Note</a>
+            </div>  
             </div>
           </td>
         </tr>
         {% empty %}
-        <h3>No Data</h3>
+        <h3></h3>
         {% endfor %}
       </table>
     </div>

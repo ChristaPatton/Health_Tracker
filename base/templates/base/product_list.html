@@ -60,7 +60,7 @@
                         Current Version
                     </div>
                     <div class="col">
-                         Latest Version
+                         Latest Available Version
                     </div>
                     <div class="col">
                         Last Update
@@ -75,13 +75,14 @@
               <td>
                 <div class="row">
                   <div class="col">{{data.client}} {% if data.note != null%}<a class="bi bi-file-earmark" data-bs-toggle="popover" data-bs-title="Note" data-bs-content= "{{data.note}}"></a>{% endif %}</div>
-                  <div class="col">{% if data.version != data.current_version %} <p id= "red">{{data.version}}</p>{% endif %}{% if data.version == data.current_version %} {{data.version}}{% endif %}</div>
-                  <div class="col">{{current_version.the_current_version}}</div>
+                  <div class="col">{% if data.product.latest_available_version != data.version and data.version != none %} <p id= "red">{{data.version}}</p>{% endif %}
+                    {% if data.version == data.product.latest_available_version %} {{data.version}}{% endif %}</div>
+                  <div class="col">{{data.product.latest_available_version}}</div>
                   <div class="col">{{data.last_update}}</div>
                   <div class="col"> 
-                   <a class="btn btn-sm btn-info" href="{% url 'update_product' data.id %}">Update</a>
-                    <a class="btn btn-sm btn-danger" href="{% url 'delete_product' data.id %}">Delete</a>
-                    <a class="btn btn-sm btn-primary" href="{% url 'add_note' data.id %}"> Note</a>
+                   <a class="btn btn-sm btn-info" href="{% url 'update_product' data.product.product  %}">Update</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'delete_product' data.product.product %}">Delete</a>
+                    <a class="btn btn-sm btn-primary" href="{% url 'add_note' data.product.product %}"> Note</a>
                   </div>
                 </div>
               </td>

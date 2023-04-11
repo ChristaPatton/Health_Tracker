@@ -1,0 +1,29 @@
+{% extends 'base/main.html' %} {% block content %}
+
+<style>
+  form {
+    font-size: x-large;
+    background-color: lightgrey;
+  }
+  body {
+    background-color: rgb(51, 54, 71);
+    margin: auto;
+    padding: 50px;
+    width: 100%;
+  }
+  h1 {
+    color: aliceblue;
+  }
+</style>
+
+<body>
+  <h1>
+    Are you sure that you want to delete {{ product.pk }} from the master
+    product list? It will no longer be available for any Client if deleted here.
+  </h1>
+
+  <a class="btn btn-lg btn-danger" href="{% url 'delete_product' product %}"
+    >Delete</a
+  >
+</body>
+{% endblock %}

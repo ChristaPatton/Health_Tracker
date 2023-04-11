@@ -19,17 +19,44 @@
     a {
       font-size: 30px;
     }
+    center {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    #space {
+      padding: 50px;
+    }
   </style>
   <body>
-    <h1>Master List: Latest Versions</h1>
+    <h1>Master Product List: Latest Available Versions</h1>
+    <div style="text-align: center">
+      <center>
+        <h3 style="display: inline-block">
+          Add A New Product To Master Product List
+        </h3>
+        <a
+          class="btn btn-lg btn-primary"
+          href="{% url 'master_add' %} "
+          style="display: inline-block"
+          >Add</a
+        >
+      </center>
+    </div>
     {% for data in masterver%}
     <div class="row">
       <hr />
       <div id="ver" class="col">{{data.product}}</div>
       <div id="ver" class="col">{{data.latest_available_version}}</div>
       <div class="col">
-        <a class="btn btn-lg btn-info" href="{% url 'update_master' data.id %}"
+        <a
+          class="btn btn-lg btn-info"
+          href="{% url 'update_master' data.product %}"
           >Update</a
+        >
+        <a
+          class="btn btn-lg btn-danger"
+          href="{% url 'delete_product' data.product %}"
+          >Delete</a
         >
       </div>
     </div>

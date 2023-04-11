@@ -1,0 +1,33 @@
+{% extends 'base/main.html' %} {% load static %} {% block content %}
+<style>
+  form {
+    font-size: x-large;
+    background-color: lightgrey;
+  }
+  body {
+    background-color: rgb(51, 54, 71);
+    margin: auto;
+    padding: 50px;
+    width: 100%;
+  }
+  h1{
+    color: aliceblue;
+  }
+</style>
+<form method="post" novalidate></form>
+<body>
+  <h1>{{product.client}}</h1>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card card-body">
+        <form action="" method="POST">
+          {% csrf_token %} {{form.as_p}}
+          <input type="submit" name="Submit" />
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</form>
+{% endblock %}

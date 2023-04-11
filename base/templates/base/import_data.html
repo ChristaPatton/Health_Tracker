@@ -1,18 +1,23 @@
 {% extends 'base/main.html' %} {% block content %}
 <h2>Import Data</h2>
+
+{% if message %}
+<div class="alert alert-danger" role="alert">{{ message }}</div>
+{% endif %}
+
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="form-group">
-    <label for="model_name">Model:</label>
-    <select id="model_name" name="model_name" class="form-control">
-      {% for model in models %}
-      <option value="{{ model }}">{{ model }}</option>
-      {% endfor %}
+    <label for="model_name">Select model:</label>
+    <select class="form-control" id="model_name" name="model_name">
+      <option value="Model1">Model1</option>
+      <option value="Model2">Model2</option>
+      <option value="Model3">Model3</option>
     </select>
   </div>
   <div class="form-group">
-    <label for="file">File:</label>
-    <input type="file" id="file" name="file" class="form-control-file" />
+    <label for="file">Select file:</label>
+    <input type="file" class="form-control-file" id="file" name="file" />
   </div>
   <button type="submit" class="btn btn-primary">Import</button>
 </form>

@@ -1,5 +1,9 @@
-{% extends 'base/main.html' %} {% block content%}
+{% extends 'base/main.html' %} {% block content%} 
 <style>
+  body{
+    margin-top: 20mm;
+    margin-bottom: 20mm;
+  }
   #list {
     list-style-type: none;
   }
@@ -15,14 +19,16 @@
       rgb(48, 67, 66),
       rgb(88, 90, 142)
     );
+    margin-top: 10mm;
   }
   #add,
   #update {
-    color: rgb(36, 135, 135);
-    font-size: 28px;
+    color: rgb(104, 28, 39);
+    font-size: 32px;
     border-radius: 5%;
     padding: 4px;
     font-weight: 500;
+    
   }
 
   p {
@@ -31,15 +37,28 @@
   a {
     color: black;
   }
+  
 </style>
+<body>
 <div>
-  <div>
+  
+
+  <center>
+    <a id="update" href="{% url 'master' %}"
+      >Latest Available Versions Master List - Update Or Add New Product</a
+    >
+  </center>
+  <center>
+    <a id="add" href="{% url 'add_product' %}"
+      >Add a Product to a Client</a
+    >
+  </center>
     <h1>Clients</h1>
     {% for client in client_list %}
     <ul id="list">
       <li>
         <button type="button" class="btn btn-light btn-lg">
-          <a href="{% url 'data-per-client' client.id %}">{{client}}</a>
+          <a href="{% url 'data-per-client' client.entity %}">{{client}}</a>
         </button>
       </li>
     </ul>
@@ -50,21 +69,11 @@
 
   <div>
     <h1>Products</h1>
-    <center>
-      <a id="add" href="{% url 'create_product' %}"
-        >Add a Product to a Client</a
-      >
-    </center>
-    <center>
-      <a id="update" href="{% url 'master' %}"
-        >Update Master to Latest Versions</a
-      >
-    </center>
-    {% for product in product_list %}
+    {% for p in product2 %}
     <ul id="list">
       <li>
         <button type="button" class="btn btn-light btn-lg">
-          <a href="{% url 'data-per-product' product.id %}">{{product}}</a>
+          <a href="{% url 'data-per-product' p.product %}">{{p}}</a>
         </button>
       </li>
     </ul>
@@ -72,4 +81,5 @@
     {% endfor %}
   </div>
 </div>
+</body>
 {% endblock content %}
